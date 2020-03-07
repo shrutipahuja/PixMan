@@ -27,6 +27,15 @@ Here, the user can edit the selected image with the following buttons:
 <b>Pre-Requisites</b>
 To use this application, storage permission must be granted using App Settings.
 
+<b>Instructions for building</b>
+
+<i>Android Studio</i>
+
+Import the project from GitHub using File -> New -> Project from Version Control -> GitHub, fill the URL https://github.com/shrutipahuja/PixMan.git
+
+It will ask for a base directory, normally AndroidStudioProjects, you can change it to your preference.
+
+After this the Pixman app can be built.
 
 
 
