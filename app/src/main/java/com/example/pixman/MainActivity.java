@@ -17,9 +17,10 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private int PICK_IMAGE_REQUEST = 1;
-    Button chooseImage;
+    private static final String IMAGE_TAG = "image";
+    private static final String BITMAP_NAME = "bitmap.png";
+    private final int  PICK_IMAGE_REQUEST = 1;
+    private Button chooseImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = data.getData();
 
             try {
-                String filename = "bitmap.png";
+                String filename = BITMAP_NAME;
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 FileOutputStream stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 bitmap.recycle();
 
                 Intent intent = new Intent(this, OperationsActivity.class);
-                intent.putExtra("image", filename);
+                intent.putExtra(IMAGE_TAG, filename);
                 startActivity(intent);
 
             } catch (IOException e) {

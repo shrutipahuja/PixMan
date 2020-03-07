@@ -24,9 +24,11 @@ import java.io.FileOutputStream;
 
 public class OperationsActivity extends AppCompatActivity {
 
-    Bitmap updatedBitmap;
-    ImageView imageView;
-    Bitmap bitmap;
+    private Bitmap updatedBitmap;
+    private ImageView imageView;
+    private Bitmap bitmap;
+    private static final int opacityValue = 50;
+    private static final int textSize = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,7 @@ public class OperationsActivity extends AppCompatActivity {
         Bitmap opaqueBitmap = Bitmap.createBitmap(updatedBitmap.getWidth(), updatedBitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(opaqueBitmap);
         Paint alphaPaint = new Paint();
-        alphaPaint.setAlpha(50);
+        alphaPaint.setAlpha(opacityValue);
         canvas.drawBitmap(updatedBitmap, 0, 0, alphaPaint);
         imageView.setImageBitmap(opaqueBitmap);
         updateBitmap(opaqueBitmap);
@@ -77,11 +79,11 @@ public class OperationsActivity extends AppCompatActivity {
 
 
     public void drawTextOnBitmap(View view) {
-        String text = "GreedyGame";
+        String text = getResources().getString(R.string.greedygame);
         Bitmap bitmap = Bitmap.createBitmap(updatedBitmap.getWidth(), updatedBitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setTextSize(20);
+        paint.setTextSize(textSize);
         paint.setColor(Color.BLACK);
         Paint.FontMetrics fm = new Paint.FontMetrics();
         paint.getFontMetrics(fm);
@@ -114,14 +116,14 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     public void drawLogoAndTextOnBitmap(View view) {
-        String text = "GreedyGame";
+        String text = getResources().getString(R.string.greedygame);
         Bitmap bitmap = Bitmap.createBitmap(updatedBitmap.getWidth(), updatedBitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         //add logo
         Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.greedygame);
 
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setTextSize(20);
+        paint.setTextSize(textSize);
         paint.setColor(Color.BLACK);
         Paint.FontMetrics fm = new Paint.FontMetrics();
         paint.getFontMetrics(fm);
@@ -161,11 +163,11 @@ public class OperationsActivity extends AppCompatActivity {
         String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + "/Camera/Your_Directory_Name";
         File myDir = new File(root);
         myDir.mkdirs();
-        String fname = "Image-" + System.currentTimeMillis() + ".png";
-        File file = new File(myDir, fname);
+        String fileName = "Image-" + System.currentTimeMillis() + ".png";
+        File file = new File(myDir, fileName);
         System.out.println(file.getAbsolutePath());
         if (file.exists()) file.delete();
-        Log.i("LOAD", root + fname);
+        Log.i("LOAD", root + fileName);
         try {
             FileOutputStream out = new FileOutputStream(file);
             updatedBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
