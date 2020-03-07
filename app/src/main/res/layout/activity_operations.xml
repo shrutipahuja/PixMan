@@ -8,34 +8,22 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_margin="20dp"
+        android:layout_width="@dimen/dp_300"
+        android:layout_height="@dimen/dp_300"
+        android:layout_margin="@dimen/dp_20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/greedyGameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GreedyGame"
-        android:textColor="#008000	"
-        android:background="#000000"
-        android:textSize="12sp"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/imageView"
-        app:layout_constraintEnd_toEndOf="@id/imageView"
-        app:layout_constraintTop_toTopOf="@id/imageView"
-        app:layout_constraintBottom_toBottomOf="@id/imageView"/>
 
     <Button
         android:id="@+id/flipHorizontallyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/dp_20"
         android:onClick="flipHorizontally"
-        android:text="Flip Horizontally"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_background"
+        android:text="@string/flip_horizontally"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageView"/>
 
@@ -43,9 +31,11 @@
         android:id="@+id/fliperticallyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/dp_20"
         android:onClick="flipVertically"
-        android:text="Flip Vertically"
+        android:text="@string/flip_vertically"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageView"/>
 
@@ -53,9 +43,11 @@
         android:id="@+id/changeOpacityButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/dp_20"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_background"
         android:onClick="changeOpacity"
-        android:text="Change Opacity \n to 50%"
+        android:text="@string/change_opacity_n_to_50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/flipHorizontallyButton"/>
 
@@ -63,26 +55,37 @@
         android:id="@+id/addTextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:onClick="drawTextToBitmap"
-        android:text="Add Greedy \nGame Text"
+        android:layout_margin="@dimen/dp_20"
+        android:onClick="drawTextOnBitmap"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_background"
+        android:text="@string/add_greedy_ngame_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fliperticallyButton"/>
+
+    <Button
+        android:id="@+id/addLogoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_background"
+        android:onClick="drawLogoAndTextOnBitmap"
+        android:text="@string/add_greedy_ngame_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/changeOpacityButton"/>
 
     <Button
         android:id="@+id/saveChangesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="200dp"
-        android:text="Save Image"
+        android:layout_margin="@dimen/dp_20"
+        android:text="@string/save_image"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_background"
         android:onClick="saveImage"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/addTextButton"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-
+        app:layout_constraintTop_toBottomOf="@id/addTextButton"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
