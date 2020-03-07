@@ -21,14 +21,18 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class OperationsActivity extends AppCompatActivity {
 
     private Bitmap updatedBitmap;
     private ImageView imageView;
     private Bitmap bitmap;
+    ArrayList<Bitmap> undoStack;
     private static final int opacityValue = 50;
-    private static final int textSize = 100;
+    private static final int textSize = 50;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +51,12 @@ public class OperationsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         updatedBitmap = bitmap.copy(bitmap.getConfig(), true);
+
+        undoStack = new ArrayList<Bitmap>();
     }
 
     public void flipHorizontally(View view) {
+        addToUndoStack();
         Matrix matrix = new Matrix();
         matrix.postScale(-1, 1, updatedBitmap.getWidth() / 2f, updatedBitmap.getHeight() / 2f);
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(updatedBitmap, updatedBitmap.getWidth(), updatedBitmap.getHeight(), true);
@@ -59,6 +66,7 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     public void flipVertically(View view) {
+        addToUndoStack();
         Matrix matrix = new Matrix();
         matrix.postScale(1, -1, updatedBitmap.getWidth() / 2f, updatedBitmap.getHeight() / 2f);
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(updatedBitmap, updatedBitmap.getWidth(), updatedBitmap.getHeight(), true);
@@ -68,6 +76,7 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     public void changeOpacity(View view) {
+        addToUndoStack();
         Bitmap opaqueBitmap = Bitmap.createBitmap(updatedBitmap.getWidth(), updatedBitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(opaqueBitmap);
         Paint alphaPaint = new Paint();
@@ -79,6 +88,7 @@ public class OperationsActivity extends AppCompatActivity {
 
 
     public void drawTextOnBitmap(View view) {
+        addToUndoStack();
         String text = getResources().getString(R.string.greedygame);
         Bitmap bitmap = Bitmap.createBitmap(updatedBitmap.getWidth(), updatedBitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -116,6 +126,7 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     public void drawLogoAndTextOnBitmap(View view) {
+        addToUndoStack();
         String text = getResources().getString(R.string.greedygame);
         Bitmap bitmap = Bitmap.createBitmap(updatedBitmap.getWidth(), updatedBitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -180,5 +191,19 @@ public class OperationsActivity extends AppCompatActivity {
         Toast.makeText(this, "Image has been saved to gallery!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void addToUndoStack() {
+        undoStack.add(updatedBitmap.copy(updatedBitmap.getConfig(),true));
+        if(undoStack.size()>3) undoStack.remove(0);
+    }
+
+    public void undo(View view) {
+        if(undoStack.size()>0) {
+            updatedBitmap = undoStack.get(undoStack.size()-1);
+            undoStack.remove(undoStack.size()-1);
+        }
+        updateBitmap(updatedBitmap);
+        imageView.setImageBitmap(updatedBitmap);
     }
 }

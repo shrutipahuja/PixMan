@@ -20,14 +20,13 @@ public class MainActivity extends AppCompatActivity {
     private static final String IMAGE_TAG = "image";
     private static final String BITMAP_NAME = "bitmap.png";
     private final int  PICK_IMAGE_REQUEST = 1;
-    private Button chooseImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        chooseImage = findViewById(R.id.chooseImageButton);
+        Button chooseImage = findViewById(R.id.chooseImageButton);
 
         chooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
